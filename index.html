@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/home.css">
-    <title>Les Petits Plats dans les grands</title>
+    <title>Les Petits Plats</title>
 </head>
 <body>
     <section id="hero">
@@ -12,21 +12,54 @@
             <img id="logo" src="assets/Logo.png" alt="logo du site">
         </header>
         <div id="container-general-search">
-            <h1 id="titre-principal">CHERCHEZ PARMI PLUS DE 1500 RECETTES 
-                DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
-            <input type="text">
+            <h1 id="titre-principal">CHERCHEZ PARMI PLEIN DE BONNES RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES</h1>
+            <form id="form-recherche-hero">
+                <input type="text" id="champ-recherche-recette" placeholder="Recherchez une recette">
+                <button id="bouton-recherche-hero">🔍</button>
+            </form>
         </div>
     </section>
-    <section id="main">
-        <div id="container-filtre"></div>
-        <div id="container-card">
-            <figure id="card">
-                <img src="" alt="">
-                <figcaption></figcaption>
 
-            </figure>
+    <section id="container-filtre">
+        <div class="filtre-select-drop">
+            <label for="ingredients">Ingrédients</label>
+            <select id="ingredients">
+                <option value="citron">Jus de citron</option>
+                <option value="gingembre">Gingembre</option>
+                <option value="tomate">Tomate</option>
+                <option value="poulet">Poulet</option>
+                <option value="poivron">Poivron rouge</option>
+            </select>
+        </div>
+        <div class="filtre-select-drop">
+            <label for="ingredients">Ingrédients</label>
+            <select id="ingredients">
+                <option value="citron">Jus de citron</option>
+                <option value="gingembre">Gingembre</option>
+                <option value="tomate">Tomate</option>
+                <option value="poulet">Poulet</option>
+                <option value="poivron">Poivron rouge</option>
+            </select>
         </div>
     </section>
-    
+
+    <section id="container-card">
+        <div class="card">
+            <img src="../img-plat/recette01.jpg" alt="Recette 1">
+            <figcaption>
+                <h2>Recette 1</h2>
+                <p>Cuisine: Française</p>
+                <p>Ingrédients principaux: Poulet, Riz</p>
+            </figcaption>
+        </div>
+        <div class="card">
+            <img src="assets/recette2.jpg" alt="Recette 2">
+            <figcaption>
+                <h2>Titre Recette 2</h2>
+                <p>Cuisine: Italienne</p>
+                <p>Ingrédients principaux: Tomate, Basilic</p>
+            </figcaption>
+        </div>
+    </section>
 </body>
 </html>
