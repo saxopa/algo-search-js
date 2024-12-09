@@ -1,4 +1,4 @@
- function createRecipeCard(recipe) {
+   function createRecipeCard(recipe) {
     const card = document.createElement('div');
     card.classList.add('card');
 
