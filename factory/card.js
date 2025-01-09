@@ -1,11 +1,11 @@
-   function createRecipeCard(recipe) {
+function createRecipeCard(recipe) {
     const card = document.createElement('div');
     card.classList.add('card');
-
-    card.innerHTML = `
+    
+    const content = `
         <img src="../img-plat/${recipe.image}" alt="${recipe.name}" />
         <figcaption>
-          <h2>${recipe.name}</h2>
+          <h2 class="recipe-name">${recipe.name}</h2>
           <h3>RECETTE</h3>
           <p id="recette-info">${recipe.description}</p>
           <h3>INGRÉDIENTS</h3>
@@ -21,6 +21,13 @@
           </div>
         </figcaption>
     `;
-
+    
+    card.innerHTML = content;
     document.getElementById('container-card').appendChild(card);
+}
+
+function displayRecipes(recipes) {
+    const container = document.getElementById('container-card');
+    container.innerHTML = '';
+    recipes.forEach(createRecipeCard);
 }

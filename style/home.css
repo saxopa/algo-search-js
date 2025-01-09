@@ -144,19 +144,21 @@ figcaption {
     padding: 20px;
     height: 100%;
 }
-
-h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 10px;
+.recipe-name {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 ;
 }
 
 h3 {
     font-size: 1.2em;
     font-weight: bold;
-    margin-top: 20px;
     margin-bottom: 10px;
+    width: 100%;
 }
+
 
 #recette-info {
     flex-grow: 1;
@@ -204,7 +206,8 @@ h3 {
   
   /* The search field */
   #myInput {
-    box-sizing: border-box;
+    box-sizing:none;
+    width:100%;
     background-image: url('searchicon.png');
     background-position: 14px 12px;
     background-repeat: no-repeat;
