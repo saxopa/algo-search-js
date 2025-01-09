@@ -4,6 +4,63 @@ let activeFilters = {
     ustensils: [],  // Liste des ustensiles sélectionnés
     appliance: null // Appareil sélectionné (un seul possible)
 };
+//Ajout du Container HTML pour les filtres actifs
+const filterContainer = document.createElement('div');
+filterContainer.id = 'active-filters-container';
+document.querySelector('#container-filtre').after(filterContainer);
+
+function displayActiveFilters() {
+    const filterContainer = document.getElementById('active-filters-container');
+    filterContainer.innerHTML = '';
+    
+    // Afficher les ingrédients actifs
+    activeFilters.ingredients.forEach(ingredient => {
+        const filterTag = document.createElement('span');
+        filterTag.classList.add('filter-tag');
+        filterTag.innerHTML = `${ingredient} <button class="remove-filter">×</button>`;
+        
+        filterTag.querySelector('.remove-filter').addEventListener('click', () => {
+            activeFilters.ingredients = activeFilters.ingredients.filter(i => i !== ingredient);
+            applyFilters();
+            displayRecipes()
+            displayActiveFilters();
+            
+        });
+        
+        filterContainer.appendChild(filterTag);
+    });
+    
+    // Afficher l'appareil actif
+    if (activeFilters.appliance) {
+        const filterTag = document.createElement('span');
+        filterTag.classList.add('filter-tag');
+        filterTag.innerHTML = `${activeFilters.appliance} <button class="remove-filter">×</button>`;
+        
+        filterTag.querySelector('.remove-filter').addEventListener('click', () => {
+            activeFilters.appliance = null;
+            applyFilters();
+            displayActiveFilters();
+            
+        });
+        
+        filterContainer.appendChild(filterTag);
+    }
+
+    if (activeFilters.ustensils) {
+        const filterTag = document.createElement('span');
+        filterTag.classList.add('filter-tag');
+        filterTag.innerHTML = `${activeFilters.ustensils} <button class="remove-filter">×</button>`;
+        
+        filterTag.querySelector('.remove-filter').addEventListener('click', () => {
+            activeFilters.ustensils = null;
+            applyFilters();
+            displayActiveFilters();
+        });
+        
+        filterContainer.appendChild(filterTag);
+    }
+}
+
 
 // Charge les recettes depuis le fichier JSON et initialise l'interface
 async function fetchRecipes() {
@@ -133,6 +190,7 @@ function addFilter(type, value) {
         activeFilters[type].push(value);
     }
     applyFilters();
+    displayActiveFilters(); // Affiche les filtres actifs
 }
 
 // Applique les filtres sélectionnés aux recettes

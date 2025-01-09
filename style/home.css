@@ -83,7 +83,10 @@ header {
     font-size: 1.5rem;
     border-radius: 0 5px 5px 0;
 }
-
+#section-filtre{
+    display: flex;
+    flex-direction: column;
+}
 #container-filtre {
     margin: 40px 10%;
     width: 30%;
@@ -250,3 +253,28 @@ h3 {
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
   .show {display:block;}
   /*à deplacer*/
+
+
+  #active-filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 10%;
+}
+
+.filter-tag {
+    background-color: #FFD15B;
+    padding: 8px 12px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.remove-filter {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+}
