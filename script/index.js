@@ -192,6 +192,8 @@ async function applyFilters() {
     displayRecipes(filteredRecipes);
 }
 
+
+//fonction de recherche de recettes 
 function searchRecipesBasic(searchTerm) {
     if (!recipes || !recipes.length) return [];
     

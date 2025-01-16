@@ -3,7 +3,7 @@ function createRecipeCard(recipe) {
     card.classList.add('card');
     
     const content = `
-        <img src="../img-plat/${recipe.image}" alt="${recipe.name}" />
+        <img src="./assets/img-plat/${recipe.image}" alt="${recipe.name}" />
         <figcaption>
           <h2 class="recipe-name">${recipe.name}</h2>
           <h3>RECETTE</h3>
