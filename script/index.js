@@ -203,20 +203,7 @@ async function applyFilters() {
   displayRecipes(filteredRecipes);
 }
 
-//fonction de recherche de recettes fonctionnelle
-function searchRecipesBasic(searchTerm) {
-  if (!recipes || !recipes.length) return [];
 
-  const searchInput = searchTerm.toLowerCase();
-  return recipes.filter(
-    (recipe) =>
-      recipe.name.toLowerCase().includes(searchInput) ||
-      recipe.description.toLowerCase().includes(searchInput) ||
-      recipe.ingredients.some((ing) =>
-        ing.ingredient.toLowerCase().includes(searchInput)
-      )
-  );
-}
 //fonction de recherche de recettes avec boucles natives
 function searchRecipesNativeLoops(searchTerm) {
   if (!recipes || !recipes.length) return [];
@@ -264,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const searchTerm = searchInput.value;
       if (searchTerm.length >= 3) {
-        const results = searchRecipesBasic(searchTerm);
+        const results = searchRecipesNativeLoops(searchTerm);
         displayRecipes(results);
       }
     });
@@ -272,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInput.addEventListener("input", (e) => {
       const searchTerm = e.target.value;
       if (searchTerm.length >= 3) {
-        const results = searchRecipesBasic(searchTerm);
+        const results = searchRecipesNativeLoops(searchTerm);
         displayRecipes(results);
       } else if (searchTerm.length === 0) {
         displayRecipes(recipes);
