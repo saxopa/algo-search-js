@@ -234,6 +234,19 @@ function searchRecipesNativeLoops(searchTerm) {
         break; // Sort de la boucle des ingrédients si un match est trouvé
       }
     }
+    // Vérifie les ustensiles
+    for (let j = 0; j < recipe.ustensils.length; j++) {
+      const ustensil = recipe.ustensils[j];
+      if (ustensil.toLowerCase().includes(searchInput)) {
+        results.push(recipe);
+        break; // Sort de la boucle des ustensiles si un match est trouvé
+      }
+    }
+    // Vérifie l'appareil
+    if (recipe.appliance.toLowerCase().includes(searchInput)) {
+      results.push(recipe);
+      continue;
+    }
   }
 
   return results;
