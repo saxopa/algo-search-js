@@ -33,33 +33,51 @@
 
         
      
-      <div class="dropdown">
-        <button onclick="myFunction('myDropdowningredients')" class="dropbtn">Ingrédients</button>
-        <div class="dropdown-content" id="myDropdowningredients">
-          
-            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()" >
-          
-        </div>
-        
-      </div>
-      <div class="dropdown">
-        <button onclick="myFunction('myDropdownappreil')" class="dropbtn">Appareils</button>
-        <div id="myDropdownappreil" class="dropdown-content">
-          <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-          
-        </div>
-      </div>
-      <div class="dropdown">
-        <button onclick="myFunction('myDropdownustensiles')" class="dropbtn">Ustensiles</button>
-        <div id="myDropdownustensiles" class="dropdown-content">
-          <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-          
-        </div>
-      </div>
-      <span id="reset-filter">X</span>
+ <!-- Dropdown Ingrédients -->
+<div class="dropdown">
+  <button onclick="myFunction('myDropdowningredients')" class="dropbtn">Ingrédients</button>
+  <div id="myDropdowningredients" class="dropdown-content">
+    <div class="search-container">
+      <input type="text" 
+             id="search-myDropdowningredients" 
+             placeholder="Rechercher..." 
+             oninput="filterDropdown('myDropdowningredients')">
+    </div>
+    <div class="dropdown-items"></div>
+  </div>
+</div>
+
+<!-- Dropdown Ustensiles -->
+<div class="dropdown">
+  <button onclick="myFunction('myDropdownustensiles')" class="dropbtn">Ustensiles</button>
+  <div id="myDropdownustensiles" class="dropdown-content">
+    <div class="search-container">
+      <input type="text" 
+             id="search-myDropdownustensiles" 
+             placeholder="Rechercher..." 
+             oninput="filterDropdown('myDropdownustensiles')">
+    </div>
+    <div class="dropdown-items"></div>
+  </div>
+</div>
+
+<!-- Dropdown Appareils -->
+<div class="dropdown">
+  <button onclick="myFunction('myDropdownappreil')" class="dropbtn">Appareils</button>
+  <div id="myDropdownappreil" class="dropdown-content">
+    <div class="search-container">
+      <input type="text" 
+             id="search-myDropdownappreil" 
+             placeholder="Rechercher..." 
+             oninput="filterDropdown('myDropdownappreil')">
+    </div>
+    <div class="dropdown-items"></div>
+  </div>
+</div>
+
+      <div id="recipe-count">Nombre de recette</div>
       
     </section>
-    x
   </div>
 
     <section id="container-card">
