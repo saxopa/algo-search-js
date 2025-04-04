@@ -8,6 +8,7 @@ let activeFilters = {
   appliance: null,
 };
 
+
 // Création du container pour les filtres actifs
 const filterContainer = document.createElement("div");
 filterContainer.id = "active-filters-container";
@@ -107,7 +108,8 @@ function populateDropdowns(uniqueElements) {
     dropdown.innerHTML = "";
   });
 
-  uniqueElements.ingredients.forEach((ingredient) => {
+
+  uniqueElements.ingredients.filter(i=> !activeFilters.ingredients.includes(i)).forEach((ingredient) => {
     if (dropdowns.ingredients) {
       const a = document.createElement("a");
       a.textContent = ingredient;
@@ -115,7 +117,21 @@ function populateDropdowns(uniqueElements) {
       dropdowns.ingredients.appendChild(a);
     }
   });
-
+  uniqueElements.appliance.filter(i=> !activeFilters.appliances.includes(i)).forEach((appliance) => {
+    if (dropdowns.appliances) {
+      const a = document.createElement("a");
+      a.textContent = appliance;
+      a.addEventListener("click", () => addFilter("ingredients", appliance));
+      dropdowns.appliances.appendChild(a);
+    }
+  });  uniqueElements.ustensils.filter(i=> !activeFilters.ustensils.includes(i)).forEach((ustensil) => {
+    if (dropdowns.ustensils) {
+      const a = document.createElement("a");
+      a.textContent = ustensil;
+      a.addEventListener("click", () => addFilter("ingredients", ustensil));
+      dropdowns.ustensils.appendChild(a);
+    }
+  });
   uniqueElements.ustensils.forEach((ustensil) => {
     if (dropdowns.ustensils) {
       const a = document.createElement("a");
@@ -135,7 +151,7 @@ function populateDropdowns(uniqueElements) {
   });
 }
 
-function myFunction(dropdownId) {
+function openDropdowns(dropdownId) {
   closeAllDropdowns();
   document.getElementById(dropdownId).classList.toggle("show");
 }
