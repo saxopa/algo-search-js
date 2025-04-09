@@ -28,63 +28,62 @@
       </div>
     </section>
     <div id="section-filtre">
-    <section id="container-filtre">
-      
+      <section id="container-filtre">
 
-        
-     
- <!-- Dropdown Ingrédients -->
-<div class="dropdown">
-  <button onclick="myFunction('myDropdowningredients')" class="dropbtn">Ingrédients</button>
-  <div id="myDropdowningredients" class="dropdown-content">
-    <div class="search-container">
-      <input type="text" 
-             id="search-myDropdowningredients" 
-             placeholder="Rechercher..." 
-             oninput="filterDropdown('myDropdowningredients')">
+        <div class="dropdown">
+          <button onclick="openDropdowns('dropdown-ingredients')" class="dropbtn"
+            >Ingrédients</button
+          >
+          <div class="dropdown-content " id="dropdown-ingredients">
+            <input
+              type="text"
+              placeholder="Search.."
+              id="myInput"
+              onkeyup="filterFunction()"
+            />
+            <!--rajouter une DIV pour gérer les infos dynamique-->
+            <div id="myDropdowningredients"></div>
+          </div>
+        </div>
+
+
+        <div class="dropdown">
+          <button onclick="openDropdowns('Dropdownappareil')" class="dropbtn"
+            >Appareils</button
+          >
+          <div class="dropdown-content " id="Dropdownappareil">
+            <input
+              type="text"
+              placeholder="Search.."
+              id="myInput"
+              onkeyup="filterFunction()"
+            />
+            <!--rajouter une DIV pour gérer les infos dynamique-->
+            <div id="myDropdownappareil"></div>
+          </div>
+        </div>
+
+
+        <div class="dropdown">
+          <button onclick="openDropdowns('myDropdownustensilesa')" class="dropbtn"
+            >Ustensiles</button
+          >
+          <div class="dropdown-content " id="myDropdownustensilesa">
+            <input
+              type="text"
+              placeholder="Search.."
+              id="myInput"
+              onkeyup="filterFunction()"
+            />
+            <!--rajouter une DIV pour gérer les infos dynamique-->
+            <div id="myDropdownustensiles"></div>
+          </div>
+      </section>
+      x
     </div>
-    <div class="dropdown-items"></div>
-  </div>
-</div>
 
-<!-- Dropdown Ustensiles -->
-<div class="dropdown">
-  <button onclick="myFunction('myDropdownustensiles')" class="dropbtn">Ustensiles</button>
-  <div id="myDropdownustensiles" class="dropdown-content">
-    <div class="search-container">
-      <input type="text" 
-             id="search-myDropdownustensiles" 
-             placeholder="Rechercher..." 
-             oninput="filterDropdown('myDropdownustensiles')">
-    </div>
-    <div class="dropdown-items"></div>
-  </div>
-</div>
-
-<!-- Dropdown Appareils -->
-<div class="dropdown">
-  <button onclick="myFunction('myDropdownappreil')" class="dropbtn">Appareils</button>
-  <div id="myDropdownappreil" class="dropdown-content">
-    <div class="search-container">
-      <input type="text" 
-             id="search-myDropdownappreil" 
-             placeholder="Rechercher..." 
-             oninput="filterDropdown('myDropdownappreil')">
-    </div>
-    <div class="dropdown-items"></div>
-  </div>
-</div>
-
-      <div id="recipe-count">Nombre de recette</div>
-      
-    </section>
-  </div>
-
-    <section id="container-card">
-    </section>
+    <section id="container-card"> </section>
     <script src="factory/card.js"></script>
     <script src="script/index.js"></script>
-    
-
   </body>
 </html>
