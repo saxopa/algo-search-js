@@ -5,7 +5,7 @@ let recipes = [];
 let activeFilters = {
   ingredients: [],
   ustensils: [],
-  appliance: null,
+  appliance: [],
 };
 
 
@@ -66,13 +66,14 @@ function displayActiveFilters() {
 }
 
 async function fetchRecipes() {
+  const response = await fetch("data/recipe.json");
+  if (!response.ok) throw new Error("Erreur de chargement des recettes");
+  recipes = await response.json();
+  const uniqueElements = extractUniqueElements(recipes);
+  populateDropdowns(uniqueElements);
+  displayRecipes(recipes);
   try {
-    const response = await fetch("data/recipe.json");
-    if (!response.ok) throw new Error("Erreur de chargement des recettes");
-    recipes = await response.json();
-    const uniqueElements = extractUniqueElements(recipes);
-    populateDropdowns(uniqueElements);
-    displayRecipes(recipes);
+   
   } catch (error) {
     console.error("Erreur :", error);
   }
@@ -100,7 +101,7 @@ function populateDropdowns(uniqueElements) {
   const dropdowns = {
     ingredients: document.getElementById("myDropdowningredients"),
     ustensils: document.getElementById("myDropdownustensiles"),
-    appliances: document.getElementById("myDropdownappreil"),
+    appliances: document.getElementById("myDropdownappareil"),
   };
 
   Object.values(dropdowns).forEach((dropdown) => {
@@ -117,14 +118,18 @@ function populateDropdowns(uniqueElements) {
       dropdowns.ingredients.appendChild(a);
     }
   });
-  uniqueElements.appliance.filter(i=> !activeFilters.appliances.includes(i)).forEach((appliance) => {
+
+  console.log(activeFilters)
+  console.log(uniqueElements.appliances)
+
+  uniqueElements.appliances.filter(i=> !activeFilters.appliances?.includes(i)).forEach((appliance) => {
     if (dropdowns.appliances) {
       const a = document.createElement("a");
       a.textContent = appliance;
       a.addEventListener("click", () => addFilter("ingredients", appliance));
       dropdowns.appliances.appendChild(a);
     }
-  });  uniqueElements.ustensils.filter(i=> !activeFilters.ustensils.includes(i)).forEach((ustensil) => {
+  });  uniqueElements.ustensils.forEach((ustensil) => {
     if (dropdowns.ustensils) {
       const a = document.createElement("a");
       a.textContent = ustensil;
