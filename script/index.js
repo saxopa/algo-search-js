@@ -113,7 +113,7 @@ function populateDropdowns(uniqueElements) {
   uniqueElements.ingredients.filter(i=> !activeFilters.ingredients.includes(i)).forEach((ingredient) => {
     if (dropdowns.ingredients) {
       const a = document.createElement("a");
-      a.textContent = ingredient;
+      a.innerHTML = ingredient;
       a.addEventListener("click", () => addFilter("ingredients", ingredient));
       dropdowns.ingredients.appendChild(a);
     }
@@ -125,14 +125,14 @@ function populateDropdowns(uniqueElements) {
   uniqueElements.appliances.filter(i=> !activeFilters.appliances?.includes(i)).forEach((appliance) => {
     if (dropdowns.appliances) {
       const a = document.createElement("a");
-      a.textContent = appliance;
+      a.innerHTML = appliance;
       a.addEventListener("click", () => addFilter("ingredients", appliance));
       dropdowns.appliances.appendChild(a);
     }
   });  uniqueElements.ustensils.forEach((ustensil) => {
     if (dropdowns.ustensils) {
       const a = document.createElement("a");
-      a.textContent = ustensil;
+      a.innerHTML = ustensil;
       a.addEventListener("click", () => addFilter("ingredients", ustensil));
       dropdowns.ustensils.appendChild(a);
     }
@@ -140,7 +140,7 @@ function populateDropdowns(uniqueElements) {
   uniqueElements.ustensils.forEach((ustensil) => {
     if (dropdowns.ustensils) {
       const a = document.createElement("a");
-      a.textContent = ustensil;
+      a.innerHTML = ustensil;
       a.addEventListener("click", () => addFilter("ustensils", ustensil));
       dropdowns.ustensils.appendChild(a);
     }
@@ -149,7 +149,7 @@ function populateDropdowns(uniqueElements) {
   uniqueElements.appliances.forEach((appliance) => {
     if (dropdowns.appliances) {
       const a = document.createElement("a");
-      a.textContent = appliance;
+      a.innerHTML = appliance;
       a.addEventListener("click", () => addFilter("appliance", appliance));
       dropdowns.appliances.appendChild(a);
     }
@@ -178,7 +178,7 @@ function filterFunction() {
   Array.from(dropdowns).forEach((dropdown) => {
     const links = dropdown.getElementsByTagName("a");
     Array.from(links).forEach((link) => {
-      const txtValue = link.textContent || link.innerText;
+      const txtValue = link.innerHTML || link.innerText;
       link.style.display = txtValue.toUpperCase().includes(filter)
         ? ""
         : "none";
