@@ -165,7 +165,10 @@ function filterDropdown(dropdownId) {
         link.style.display = txtValue.toUpperCase().includes(filter) ? "" : "none";
     });
 }
-
+function openDropdowns(dropdownId) {
+  closeAllDropdowns();
+  document.getElementById(dropdownId).classList.toggle("show");
+}
 // Fonction pour ajouter un filtre
 function addFilter(type, value) {
     if (type === 'appliance') {
