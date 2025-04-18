@@ -169,6 +169,23 @@ function openDropdowns(dropdownId) {
   closeAllDropdowns();
   document.getElementById(dropdownId).classList.toggle("show");
 }
+
+function filterFunction() {
+  const input = document.getElementById("myInput");
+  const filter = input.value.toUpperCase();
+  const dropdowns = document.getElementsByClassName("dropdown-content");
+
+  Array.from(dropdowns).forEach((dropdown) => {
+    const links = dropdown.getElementsByTagName("a");
+    Array.from(links).forEach((link) => {
+      const txtValue = link.innerHTML || link.innerText;
+      link.style.display = txtValue.toUpperCase().includes(filter)
+        ? ""
+        : "none";
+    });
+  });
+}
+
 // Fonction pour ajouter un filtre
 function addFilter(type, value) {
     if (type === 'appliance') {
