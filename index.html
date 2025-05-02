@@ -41,10 +41,12 @@
           >
           <div class="dropdown-content " id="dropdown-ingredients">
             <input
+            class="myInput"
               type="text"
               placeholder="Search.."
-              id="myInput"
-              onkeyup="filterFunction()"
+              id="myInputIngredients"
+              onkeyup="filterFunction('myInputIngredients', 'myDropdowningredients')"
+              onclick="event.stopPropagation()"
             />
             <!--rajouter une DIV pour gérer les infos dynamique-->
             <div id="myDropdowningredients"></div>
@@ -58,10 +60,12 @@
           >
           <div class="dropdown-content " id="Dropdownappareil">
             <input
+            class="myInput"
               type="text"
               placeholder="Search.."
-              id="myInput"
-              onkeyup="filterFunction()"
+              id="myInputAppareil"
+              onkeyup="filterFunction('myInputAppareil', 'myDropdownappareil')"
+              onclick="event.stopPropagation()"
             />
             <!--rajouter une DIV pour gérer les infos dynamique-->
             <div id="myDropdownappareil"></div>
@@ -75,10 +79,12 @@
           >
           <div class="dropdown-content " id="myDropdownustensilesa">
             <input
+            class="myInput"
               type="text"
               placeholder="Search.."
-              id="myInput"
-              onkeyup="filterFunction()"
+              id="myInputUstensiles"
+              onkeyup="filterFunction('myInputUstensiles', 'myDropdownustensiles')"
+              onclick="event.stopPropagation()"
             />
             <!--rajouter une DIV pour gérer les infos dynamique-->
             <div id="myDropdownustensiles"></div>

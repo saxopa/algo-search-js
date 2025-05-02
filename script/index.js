@@ -170,12 +170,12 @@ function closeAllDropdowns() {
   });
 }
 
-function filterFunction() {
-  const input = document.getElementById("myInput");
+function filterFunction(inputId, dropdownId) {
+  const input = document.getElementById(inputId);
   const filter = input.value.toUpperCase();
-  const dropdowns = document.getElementsByClassName("dropdown-content");
+  const dropdown = document.getElementById(dropdownId);
 
-  Array.from(dropdowns).forEach((dropdown) => {
+  if (dropdown) {
     const links = dropdown.getElementsByTagName("a");
     Array.from(links).forEach((link) => {
       const txtValue = link.innerHTML || link.innerText;
@@ -183,7 +183,7 @@ function filterFunction() {
         ? ""
         : "none";
     });
-  });
+  }
 }
 
 function addFilter(type, value) {
@@ -278,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const searchForm = document.getElementById("form-recherche-hero");
   const searchInput = document.getElementById("champ-recherche-recette");
-  const filterInput = document.getElementById("myInput");
 
   if (searchForm && searchInput) {
     searchForm.addEventListener("submit", (e) => {
@@ -301,13 +300,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (filterInput) {
-    filterInput.addEventListener("input", filterFunction);
-    filterInput.addEventListener("click", (e) => e.stopPropagation());
-  }
-
   window.addEventListener("click", (event) => {
-    if (!event.target.matches(".dropbtn")) {
+    if (!event.target.matches(".dropbtn") && !event.target.matches("input[type='text']")) {
       closeAllDropdowns();
     }
   });
