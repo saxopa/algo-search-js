@@ -3,6 +3,9 @@ let recipes = [];
 
 let recipefilterded = [];
 
+// AJOUT: Variable pour stocker le terme de recherche actuel
+let currentSearchTerm = "";
+
 // Stockage des filtres actifs
 let activeFilters = {
   ingredients: [],
@@ -29,7 +32,8 @@ function displayActiveFilters() {
       activeFilters.ingredients = activeFilters.ingredients.filter(
         (item) => item !== ingredient
       );
-      applyFilters();
+      // MODIFICATION: Appliquer la recherche ET les filtres
+      applySearchAndFilters();
       displayActiveFilters();
     });
     filterContainer.appendChild(filterTag);
@@ -45,7 +49,8 @@ function displayActiveFilters() {
       activeFilters.ustensils = activeFilters.ustensils.filter(
         (item) => item !== ustensil
       );
-      applyFilters();
+      // MODIFICATION: Appliquer la recherche ET les filtres
+      applySearchAndFilters();
       displayActiveFilters();
     });
     filterContainer.appendChild(filterTag);
@@ -59,7 +64,8 @@ function displayActiveFilters() {
 
     filterTag.querySelector(".remove-filter").addEventListener("click", () => {
       activeFilters.appliance = null;
-      applyFilters();
+      // MODIFICATION: Appliquer la recherche ET les filtres
+      applySearchAndFilters();
       displayActiveFilters();
     });
     filterContainer.appendChild(filterTag);
@@ -177,12 +183,15 @@ function filterFunction(inputId, dropdownId) {
   if (dropdown) {
     dropdown.innerHTML = "";
     
+    // MODIFICATION: Utiliser recipefilterded au lieu de recipes pour la recherche dans les dropdowns
+    // Cela permet de ne chercher que dans les recettes déjà filtrées
+    
     // Correction: Fonction de recherche d'ingrédients
     if (dropdownId === "myDropdowningredients") {
       const uniqueIngredients = new Set();
       
-      // Collecter tous les ingrédients qui correspondent au filtre et ne sont pas déjà sélectionnés
-      recipes.forEach((recipe) => {
+      // MODIFICATION: Utiliser recipefilterded pour ne chercher que dans les recettes filtrées
+      recipefilterded.forEach((recipe) => {
         recipe.ingredients.forEach((ingredient) => {
           if (
             ingredient.ingredient.toUpperCase().includes(filter) && 
@@ -207,7 +216,8 @@ function filterFunction(inputId, dropdownId) {
       // Utiliser un Map pour normaliser les ustensiles et éviter les doublons comme "Économe" et "économe"
       const ustensilMap = new Map();
       
-      recipes.forEach((recipe) => {
+      // MODIFICATION: Utiliser recipefilterded pour ne chercher que dans les recettes filtrées
+      recipefilterded.forEach((recipe) => {
         recipe.ustensils.forEach((ustensil) => {
           if (ustensil.toUpperCase().includes(filter)) {
             // Clé en minuscules pour comparaison insensible à la casse
@@ -237,7 +247,8 @@ function filterFunction(inputId, dropdownId) {
       if (!activeFilters.appliance) {
         const uniqueAppliances = new Set();
         
-        recipes.forEach((recipe) => {
+        // MODIFICATION: Utiliser recipefilterded pour ne chercher que dans les recettes filtrées
+        recipefilterded.forEach((recipe) => {
           if (recipe.appliance.toUpperCase().includes(filter)) {
             uniqueAppliances.add(recipe.appliance);
           }
@@ -260,12 +271,14 @@ function addFilter(type, value) {
   } else if (!activeFilters[type].includes(value)) {
     activeFilters[type].push(value);
   }
-  applyFilters();
+  // MODIFICATION: Appliquer la recherche ET les filtres
+  applySearchAndFilters();
   displayActiveFilters();
 }
 
-async function applyFilters() {
-  const filteredRecipes = recipes.filter((recipe) => {
+// FONCTION MODIFIÉE: Maintenant elle ne fait que les filtres sur un ensemble de recettes donné
+function applyFiltersToRecipes(recipesToFilter) {
+  return recipesToFilter.filter((recipe) => {
     // Vérifie si tous les ingrédients sélectionnés sont dans la recette
     const ingredientsMatch =
       activeFilters.ingredients.length === 0 ||
@@ -291,22 +304,47 @@ async function applyFilters() {
     
     return ingredientsMatch && ustensilsMatch && applianceMatch;
   });
-
-  const uniqueElements = extractUniqueElements(filteredRecipes);
-  populateDropdowns(uniqueElements);
-  displayRecipes(filteredRecipes);
-  recipefilterded = filteredRecipes;
 }
 
-//fonction de recherche de recettes avec boucles natives
-function searchRecipesNativeLoops(searchTerm) {
-  if (!recipes || !recipes.length) return [];
+// ANCIENNE fonction applyFilters remplacée par cette nouvelle fonction
+async function applyFilters() {
+  // MODIFICATION: Cette fonction appelle maintenant applySearchAndFilters
+  applySearchAndFilters();
+}
+
+// NOUVELLE FONCTION: Fonction principale qui combine recherche et filtres
+function applySearchAndFilters() {
+  let recipesToDisplay = recipes; // On part de toutes les recettes
+  
+  // ÉTAPE 1: Appliquer la recherche si un terme est présent
+  if (currentSearchTerm && currentSearchTerm.length >= 3) {
+    recipesToDisplay = searchRecipesNativeLoops(currentSearchTerm, recipesToDisplay);
+  }
+  
+  // ÉTAPE 2: Appliquer les filtres sur les recettes déjà filtrées par la recherche
+  recipesToDisplay = applyFiltersToRecipes(recipesToDisplay);
+  
+  // ÉTAPE 3: Mettre à jour les données et l'affichage
+  recipefilterded = recipesToDisplay;
+  
+  // ÉTAPE 4: Mettre à jour les dropdowns avec les nouvelles données disponibles
+  const uniqueElements = extractUniqueElements(recipesToDisplay);
+  populateDropdowns(uniqueElements);
+  
+  // ÉTAPE 5: Afficher les recettes finales
+  displayRecipes(recipesToDisplay);
+}
+
+//FONCTION MODIFIÉE: fonction de recherche de recettes avec boucles natives
+// MODIFICATION: Ajout d'un paramètre pour préciser dans quelles recettes chercher
+function searchRecipesNativeLoops(searchTerm, recipesToSearch = recipes) {
+  if (!recipesToSearch || !recipesToSearch.length) return [];
 
   const searchInput = searchTerm.toLowerCase();
   const results = [];
 
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
+  for (let i = 0; i < recipesToSearch.length; i++) {
+    const recipe = recipesToSearch[i];
     let isAdded = false;
 
     // Vérifie le nom
@@ -364,19 +402,22 @@ document.addEventListener("DOMContentLoaded", () => {
     searchForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const searchTerm = searchInput.value;
+      // MODIFICATION: Stocker le terme de recherche et utiliser la nouvelle fonction
+      currentSearchTerm = searchTerm;
       if (searchTerm.length >= 3) {
-        const results = searchRecipesNativeLoops(searchTerm);
-        displayRecipes(results);
+        applySearchAndFilters(); // Utiliser la nouvelle fonction combinée
       }
     });
 
     searchInput.addEventListener("input", (e) => {
       const searchTerm = e.target.value;
+      // MODIFICATION: Stocker le terme de recherche et utiliser la nouvelle fonction
+      currentSearchTerm = searchTerm;
       if (searchTerm.length >= 3) {
-        const results = searchRecipesNativeLoops(searchTerm);
-        displayRecipes(results);
+        applySearchAndFilters(); // Utiliser la nouvelle fonction combinée
       } else if (searchTerm.length === 0) {
-        displayRecipes(recipes);
+        currentSearchTerm = ""; // Réinitialiser le terme de recherche
+        applySearchAndFilters(); // Réappliquer seulement les filtres
       }
     });
   }
